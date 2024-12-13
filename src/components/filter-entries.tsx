@@ -7,12 +7,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -86,23 +80,14 @@ const FilterEntries = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="outline" size="icon" className="relative">
-                <Filter className="h-4 w-4" />
-                {activeFilters > 0 && (
-                  <Badge className="absolute -top-2 -right-1 h-4 w-4 rounded-full p-0 flex items-center justify-center">
-                    {activeFilters}
-                  </Badge>
-                )}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Filter entries</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Button variant="outline" size="icon" className="relative">
+          <Filter className="h-4 w-4" />
+          {activeFilters > 0 && (
+            <Badge className="absolute -top-2 -right-1 h-4 w-4 rounded-full p-0 flex items-center justify-center">
+              {activeFilters}
+            </Badge>
+          )}
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-96">
         <div className="space-y-6 p-2">
