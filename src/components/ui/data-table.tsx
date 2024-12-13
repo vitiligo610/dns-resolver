@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/table";
 import * as React from "react";
 import { ScrollArea } from "./scroll-area";
+import { useSelection } from "@/contexts/selection-context";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -29,15 +31,37 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const { selectedIds, setSelectedIds } = useSelection();
+
+  const rowSelection = React.useMemo(() => {
+    const selection: Record<string, boolean> = {};
+    data.forEach((row: any, index) => {
+      selection[index] = selectedIds.includes(row.id);
+    });
+    return selection;
+  }, [data, selectedIds]);
 
   const table = useReactTable({
     data,
     columns,
+    enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
+      rowSelection,
+    },
+    onRowSelectionChange: (updater) => {
+      const newSelection = typeof updater === 'function' 
+        ? updater(rowSelection) 
+        : updater;
+      
+      const selectedRows = Object.keys(newSelection)
+        .filter(key => newSelection[key])
+        .map(key => (data[parseInt(key)] as any).id);
+      
+      setSelectedIds(selectedRows);
     },
   });
 

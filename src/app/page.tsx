@@ -1,5 +1,6 @@
 import DNSTable from "@/components/table/dns-table";
 import Toolbar from "@/components/toolbar";
+import { SelectionProvider } from "@/contexts/selection-context";
 
 const Home = async ({
   searchParams
@@ -12,10 +13,12 @@ const Home = async ({
   const query = params?.query || "";
 
   return (
-    <div className="h-20 flex flex-col gap-8">
-      <Toolbar />
-      <DNSTable query={query} />
-    </div>
+    <SelectionProvider>
+      <div className="h-20 flex flex-col gap-8">
+        <Toolbar />
+        <DNSTable query={query} />
+      </div>
+    </SelectionProvider>
   );
 }
 

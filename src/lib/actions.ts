@@ -83,7 +83,7 @@ export const deleteEntries = async (entry_ids: number[]) => {
   try {
     await pool.query(
       `DELETE FROM dns
-      WHERE id IN ?`,
+      WHERE id IN (?)`,
       [entry_ids]
     );
   } catch (error) {

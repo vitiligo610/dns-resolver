@@ -1,7 +1,8 @@
 import SearchInput from "@/components/search-input";
 import { Button } from "@/components/ui/button";
-import { Filter, Plus, Trash } from "lucide-react";
-import DNSDialogForm from "./dns-dialog-form";
+import { Filter, Plus } from "lucide-react";
+import DNSDialogForm from "@/components/dns-dialog-form";
+import DeleteEntriesButton from "@/components/delete-entries-button";
 
 const Toolbar = () => {
   return (
@@ -15,9 +16,7 @@ const Toolbar = () => {
           <Plus className="mr-2" /> Add New
         </Button>
       </DNSDialogForm>
-      <Button variant="destructive" disabled>
-        <Trash /> Delete
-      </Button>
+      <DeleteEntriesButton />
     </div>
   );
 };
