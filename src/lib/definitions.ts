@@ -1,6 +1,6 @@
 export type DNSEntry = {
   id: number;
-  domain: string;
+  domain_name: string;
   ip_address: string;
   ip_class: string;
 };

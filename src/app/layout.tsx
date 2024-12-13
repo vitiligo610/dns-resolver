@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ const RootLayout = ({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased bg-background`}
+        className={`${inter.className} antialiased bg-background h-screen flex flex-col`}
       >
         <ThemeProvider
           attribute="class"
@@ -30,9 +31,10 @@ const RootLayout = ({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-1 container px-8 md:px-16 py-8">
+          <main className="flex-1 container px-8 md:px-16 py-8 mx-auto">
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
