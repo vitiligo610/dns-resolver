@@ -4,10 +4,12 @@ import { fetchEntries } from "@/lib/actions";
 
 interface DNSTableProps {
   query: string;
+  classes: string[];
+  tlds: string[];
 }
 
-const DNSTable = async ({ query }: DNSTableProps) => {
-  const { entries, count } = await fetchEntries(query);
+const DNSTable = async ({ query, classes, tlds }: DNSTableProps) => {
+  const { entries, count } = await fetchEntries(query, classes, tlds);
 
   return (
     <div className="flex flex-col gap-4 pb-8">

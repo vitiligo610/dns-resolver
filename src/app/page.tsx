@@ -7,16 +7,24 @@ const Home = async ({
 }: {
   searchParams?: {
     query?: string;
+    classes?: string;
+    tlds?: string;
   }
 }) => {
   const params = await searchParams;
   const query = params?.query || "";
+  const classes = params?.classes?.split(",") || [];
+  const tlds = params?.tlds?.split(",") || [];
 
   return (
     <SelectionProvider>
       <div className="h-20 flex flex-col gap-8">
         <Toolbar />
-        <DNSTable query={query} />
+        <DNSTable 
+          query={query} 
+          classes={classes}
+          tlds={tlds}
+        />
       </div>
     </SelectionProvider>
   );

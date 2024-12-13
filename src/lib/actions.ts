@@ -1,38 +1,52 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { pool } from "@/lib/db";
 import { DNSEntry, DNSEntryWithoutId } from "@/lib/definitions";
 import dns from "dns/promises";
 
-export const fetchEntries = async (query: string) => {
+export const fetchEntries = async (
+  query: string,
+  classes?: string[],
+  tlds?: string[]
+) => {
   try {
     const conditions = [];
     const params = [];
 
     if (query) {
-      conditions.push("domain_name LIKE ? OR ip_address LIKE ?");
+      conditions.push("(domain_name LIKE ? OR ip_address LIKE ?)");
       params.push(`%${query}%`, `%${query}%`);
     }
 
-    const whereClause =
-      conditions.length > 0 ? "WHERE " + conditions.join("") : "";
+    if (classes && classes.length > 0) {
+      conditions.push(`ip_class IN (${classes.map(() => "?").join(",")})`);
+      params.push(...classes);
+    }
+
+    if (tlds && tlds.length > 0) {
+      const tldConditions = tlds.map(() => "domain_name LIKE ?").join(" OR ");
+      conditions.push(`(${tldConditions})`);
+      params.push(...tlds.map(tld => `%${tld}`));
+    }
+
+    const whereClause = conditions.length > 0 
+      ? "WHERE " + conditions.join(" AND ")
+      : "";
 
     const [entries] = await pool.query(
-      `SELECT * FROM dns
-      ${whereClause}`,
+      `SELECT * FROM dns ${whereClause}`,
       params
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [data]: any = await pool.query(
-      `SELECT COUNT(*) AS count FROM dns
-      ${whereClause}`,
+      `SELECT COUNT(*) AS count FROM dns ${whereClause}`,
       params
     );
 
     return { entries: entries as DNSEntry[], count: data[0].count };
   } catch (error) {
-    console.log("An error occured: ", error);
+    console.log("An error occurred: ", error);
     throw new Error("Error fetching DNS entries.");
   }
 };

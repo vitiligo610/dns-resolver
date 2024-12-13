@@ -1,13 +1,12 @@
 "use client";
 
+import DeleteDialogButton from "@/components/delete-dialog-button";
+import EditDialogButton from "@/components/edit-dialog-button";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { DNSEntry } from "@/lib/definitions";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Edit } from "lucide-react";
-import DNSDialogForm from "@/components/dns-dialog-form";
-import DeleteDialogButton from "@/components/delete-dialog-button";
 
 export const columns: ColumnDef<DNSEntry>[] = [
   {
@@ -64,15 +63,11 @@ export const columns: ColumnDef<DNSEntry>[] = [
     meta: { width: "120px" },
     cell: ({ row }) => (
       <div className=" flex items-center gap-2">
-        <DNSDialogForm mode="edit" initialData={row.original}>
-          <Button
-            variant="ghost"
-            size="icon"
-            >
-            <Edit />
-          </Button>
-        </DNSDialogForm>
-        <DeleteDialogButton entry_id={row.original.id} domain_name={row.original.domain_name} />
+        <EditDialogButton entry={row.original} />
+        <DeleteDialogButton
+          entry_id={row.original.id}
+          domain_name={row.original.domain_name}
+        />
       </div>
     ),
   },
