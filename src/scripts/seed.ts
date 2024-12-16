@@ -7,7 +7,8 @@ const seedTable = async () => {
       id INT PRIMARY KEY AUTO_INCREMENT,
       domain_name VARCHAR(255) NOT NULL UNIQUE,
       ip_address VARCHAR(255) NOT NULL,
-      ip_class ENUM('A', 'B', 'C', 'D', 'E') NOT NULL
+      ip_class ENUM('A', 'B', 'C', 'D', 'E') NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`
   );
 

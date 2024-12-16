@@ -35,7 +35,8 @@ export const fetchEntries = async (
       : "";
 
     const [entries] = await pool.query(
-      `SELECT * FROM dns ${whereClause}`,
+      `SELECT * FROM dns ${whereClause}
+      ORDER BY created_at DESC`,
       params
     );
 
