@@ -102,7 +102,7 @@ const DNSDialogForm = ({ mode, initialData, children }: DNSDialogFormProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         {children}
       </DialogTrigger>
       <DialogContent>

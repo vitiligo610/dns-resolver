@@ -88,7 +88,7 @@ const FilterEntries = () => {
       <PopoverTrigger>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
+            <TooltipTrigger>
               <Button variant="outline" size="icon" className="relative">
                 <Filter className="h-4 w-4" />
                 {activeFilters > 0 && (

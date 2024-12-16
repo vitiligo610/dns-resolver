@@ -1,4 +1,5 @@
 "use client";
+
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -24,7 +25,7 @@ export const SplashUI = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="h-screen w-screen flex flex-col items-center justify-center bg-gray-900 text-white"
+      className="absolute top-0 left-0 h-screen w-screen flex flex-col items-center justify-center bg-background text-white z-20"
     >
       <motion.div
         animate={{
@@ -37,7 +38,7 @@ export const SplashUI = () => {
         <svg width="120" height="120" viewBox="0 0 24 24" fill="none">
           <motion.path
             d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-            stroke="cyan"
+            stroke="hsl(0 0% 98%)"
             strokeWidth="2"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
@@ -47,7 +48,7 @@ export const SplashUI = () => {
       </motion.div>
 
       <motion.h1
-        className="text-4xl font-bold mb-4 text-cyan-400"
+        className="text-4xl font-bold mb-4 text-primary"
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
@@ -62,7 +63,7 @@ export const SplashUI = () => {
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
-            className="w-3 h-3 rounded-full bg-cyan-400"
+            className="w-3 h-3 rounded-full bg-accent-foreground"
             animate={{
               scale: [1, 1.5, 1],
               opacity: [0.5, 1, 0.5],
@@ -77,7 +78,7 @@ export const SplashUI = () => {
       </motion.div>
 
       <motion.p
-        className="text-lg text-cyan-200"
+        className="text-lg text-primary"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -86,7 +87,7 @@ export const SplashUI = () => {
       </motion.p>
 
       <motion.div
-        className="absolute bottom-4 text-sm text-gray-400"
+        className="absolute bottom-4 text-sm text-muted-foreground"
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
