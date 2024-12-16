@@ -1,3 +1,4 @@
+"use client";
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -15,7 +16,7 @@ export const SplashUI = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setMessageIndex((prev) => (prev + 1) % funnyLoadingMessages.length);
-    }, 2000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
