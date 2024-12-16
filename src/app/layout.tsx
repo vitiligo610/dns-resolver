@@ -1,9 +1,13 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import SplashScreen from "@/components/ui/splash-ui";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,31 +18,39 @@ export const metadata: Metadata = {
   description: "Open Ended Lab - Computer Networks",
 };
 
-const RootLayout = ({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) => {
+}>) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // 2 seconds splash screen
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} antialiased bg-background h-screen flex flex-col`}
-      >
-        <ThemeProvider
+      <body className={`${inter.className} antialiased bg-background h-screen flex flex-col`}>
+        <ThemeProvider 
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-1 container px-8 md:px-16 py-8 mx-auto">
-            {children}
-          </main>
+          {children}
           <Toaster />
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
-export default RootLayout;
