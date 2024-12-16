@@ -22,7 +22,7 @@ export default function RootLayout({
   useEffect(() => {
     setTimeout(() => {
       setShowSplash(false);
-    }, 5000);
+    }, 1000);
   }, []);
 
   return (

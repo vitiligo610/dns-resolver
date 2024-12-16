@@ -30,6 +30,7 @@ const DNSDialogForm = ({ mode, initialData, children }: DNSDialogFormProps) => {
   const [ipClass, setIpClass] = useState(initialData?.ip_class ?? "");
   const [isFetching, setIsFetching] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [isFetchSuccess, setIsFetchSuccess] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -54,6 +55,7 @@ const DNSDialogForm = ({ mode, initialData, children }: DNSDialogFormProps) => {
       const { ip_address, ip_class } = await resolveDns(domain);
       setIpAddress(ip_address);
       setIpClass(ip_class);
+      setIsFetchSuccess(true);
     } catch (error) {
       console.error("Failed to fetch DNS details:", error);
       toast({
@@ -102,7 +104,7 @@ const DNSDialogForm = ({ mode, initialData, children }: DNSDialogFormProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         {children}
       </DialogTrigger>
       <DialogContent>
@@ -156,7 +158,7 @@ const DNSDialogForm = ({ mode, initialData, children }: DNSDialogFormProps) => {
             </Button>
             <Button
               onClick={handleAdd}
-              disabled={!ipAddress || !ipClass || isAdding}
+              disabled={!ipAddress || !ipClass || !isFetchSuccess || isAdding}
             >
               {isAdding ? (
                 <>
