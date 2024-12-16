@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
     <div className="rounded-md border">
       <ScrollArea className="h-[67vh] flex">
         <Table className="w-full h-full">
-          <TableHeader className="bg-[#0e0e11]">
+          <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-muted/20">
                 {headerGroup.headers.map((header) => (
