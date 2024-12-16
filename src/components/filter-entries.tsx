@@ -85,7 +85,7 @@ const FilterEntries = () => {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>

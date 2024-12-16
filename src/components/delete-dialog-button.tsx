@@ -51,7 +51,7 @@ const DeleteDialogButton = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
+      <AlertDialogTrigger>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
