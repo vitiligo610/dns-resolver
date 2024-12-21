@@ -123,7 +123,10 @@ export const resolveDns = async (domain: string) => {
 const getIpClass = (address: string) => {
   const firstOctet = parseInt(address.split(".")[0]);
 
-  if (firstOctet >= 1 && firstOctet <= 126) return "A";
+  if (firstOctet >= 1 && firstOctet <= 126) {
+    if (firstOctet === 127) return "Loopback";
+    return "A";
+  }
   else if (firstOctet >= 128 && firstOctet <= 191) return "B";
   else if (firstOctet >= 192 && firstOctet <= 223) return "C";
   else if (firstOctet >= 224 && firstOctet <= 239) return "D";

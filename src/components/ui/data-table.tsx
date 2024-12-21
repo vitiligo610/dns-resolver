@@ -73,7 +73,7 @@ export function DataTable<TData, TValue>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-muted/20">
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} colSpan={header.colSpan} style={{ width: header.column.columnDef.meta?.width ?? "" }}>
+                  <TableHead key={header.id} colSpan={header.colSpan} style={{ width: (header.column.columnDef.meta as any)?.width ?? "" }}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
